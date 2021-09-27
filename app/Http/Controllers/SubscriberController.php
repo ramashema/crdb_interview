@@ -84,7 +84,7 @@ class SubscriberController extends Controller
 
             return redirect('subscription_requests')->with('message','Customer and Agent has been notified' );
         } else {
-
+            return redirect('subscription_requests')->with("error","Can't update customer right now" );
         }
     }
 }
