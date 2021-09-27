@@ -74,19 +74,13 @@ class SubscriberController extends Controller
             $verification_status = $subscriber->subscription_status;
 
             //send email about the status
-            $email_addresses = ['Stephen.Mtenga@crdbbank.co.tz','Aloyce.Mwitwa@crdbbank.co.tz'];
+            $agent = 'Stephen.Mtenga@crdbbank.co.tz';
+            $customer = 'Aloyce.Mwitwa@crdbbank.co.tz';
             $subscriber_full_name = $subscriber->first_name." ".$subscriber->last_name;
-
-            $details = [
-                'title' => 'Subscriber notification from Company X'
-            ];
+            $service_type = $subscriber->service_type;
 
             // send email to subscribers
-            Mail::to($email_addresses)->send( new SubscriptionNotification($details,$subscriber_full_name));
+            Mail::to($customer)->cc($agent)->send( new SubscriptionNotification($subscriber_full_name, $service_type, $verification_status));
         }
-
-
-
     }
-
 }

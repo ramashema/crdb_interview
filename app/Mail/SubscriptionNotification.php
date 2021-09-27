@@ -10,18 +10,19 @@ use Illuminate\Queue\SerializesModels;
 class SubscriptionNotification extends Mailable
 {
     use Queueable, SerializesModels;
-    public $details;
     public $subscriber_full_name;
     public $service_type;
+    public $verification_status;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($details,$subscriber_full_name)
+    public function __construct($subscriber_full_name, $service_type, $verification_status)
     {
-        $this->details = $details;
         $this->subscriber_full_name = $subscriber_full_name;
+        $this->service_type = $service_type;
+        $this->verification_status = $verification_status;
     }
 
     /**
@@ -31,6 +32,11 @@ class SubscriptionNotification extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.subscriptionNotification')->with('details', $this->details);
+        $details = [
+          'subscriber_full_name'=> $this->subscriber_full_name,
+           'service_type' => $this->service_type,
+            'verification_status'=>$this->verification_status
+        ];
+        return $this->markdown('emails.subscriptionNotification')->with('details', $details);
     }
 }

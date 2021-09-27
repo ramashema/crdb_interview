@@ -1,10 +1,8 @@
 @component('mail::message')
-{{ $details['Title'] }}
+    <h2>Notification From Company X</h2>
 
-Dear {{ $subscriber_full_name }};<br>
-Your service
-
-
+    <p>Dear {{ $details['subscriber_full_name'] }}</p>
+    <p>Your subscription to {{ $details['service_type'] }} service has been {{ $details['verification_status'] }}</p>
 
 {{--@component('mail::button', ['url' => ''])--}}{{--
 Button Text
