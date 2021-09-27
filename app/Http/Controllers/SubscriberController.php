@@ -81,6 +81,10 @@ class SubscriberController extends Controller
 
             // send email to subscribers
             Mail::to($customer)->cc($agent)->send( new SubscriptionNotification($subscriber_full_name, $service_type, $verification_status));
+
+            return redirect('subscription_requests')->with('message','Customer and Agent has been notified' );
+        } else {
+
         }
     }
 }
